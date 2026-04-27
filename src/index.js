@@ -1,6 +1,6 @@
 export function LinkedList() {
-  let head = null;
-  let tail = null;
+  let listHead = null;
+  let listTail = null;
 
   function newNode(val) {
     const value = val;
@@ -15,13 +15,39 @@ export function LinkedList() {
   function append(value) {
     const node = newNode(value);
 
-    if (tail !== null) tail.nextNode = node;
-    if (head === null) head = node;
+    if (listTail !== null) listTail.nextNode = node;
+    if (listHead === null) listHead = node;
+    listTail = node;
+  }
 
-    tail = node;
+  function prepend(value) {
+    const node = newNode(value);
+
+    if (listHead !== null) node.nextNode = listHead;
+    if (listTail === null) listTail = node;
+    listHead = node;
+  }
+
+  function head() {
+    if (listHead === null) return;
+    return listHead.value;
+  }
+
+  function tail() {
+    if (listTail === null) return;
+    return listTail.value;
+  }
+
+  function reset() {
+    listHead = null;
+    listTail = null;
   }
 
   return {
-    append
+    append,
+    prepend,
+    head,
+    tail,
+    reset,
   };
 }
