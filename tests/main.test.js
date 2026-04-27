@@ -17,4 +17,10 @@ describe("Linked List", () => {
     list.prepend("c");
     expect(list.head()).toBe("c");
   });
+  test("should count the list", () => {
+    expect(list.size()).toBe(2);
+    list.append("c");
+    list.prepend("c");
+    expect(list.size()).toBe(4);
+  });
 });

@@ -28,6 +28,14 @@ export function LinkedList() {
     listHead = node;
   }
 
+  function size(current = listHead) {
+    let counter = 1;
+    if (current.nextNode === null) return counter;
+
+    counter += size(current.nextNode)
+    return counter;
+  }
+
   function head() {
     if (listHead === null) return;
     return listHead.value;
@@ -46,6 +54,7 @@ export function LinkedList() {
   return {
     append,
     prepend,
+    size,
     head,
     tail,
     reset,
