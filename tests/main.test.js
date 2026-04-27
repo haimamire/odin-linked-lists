@@ -23,4 +23,13 @@ describe("Linked List", () => {
     list.prepend("c");
     expect(list.size()).toBe(4);
   });
+  test("should find the value of any index", () => {
+    expect(list.at(0)).toBe("a");
+    expect(list.at(1)).toBe("b");
+    expect(list.at(2)).toBe(undefined);
+    list.prepend("c");
+    expect(list.at(2)).toBe("b");
+    list.append("c");
+    expect(list.at(3)).toBe("c");
+  });
 });
