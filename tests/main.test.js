@@ -23,6 +23,9 @@ describe("Linked List", () => {
     list.append("c");
     list.prepend("c");
     expect(list.size()).toBe(4);
+
+    list.reset();
+    expect(list.size()).toBe(0);
   });
   test("should find the value of the specified index", () => {
     expect(list.at(0)).toBe("a");
@@ -63,5 +66,37 @@ describe("Linked List", () => {
 
     list.append("c");
     expect(list.toString()).toBe("( c ) -> ( a ) -> ( b ) -> ( c ) -> null");
+  });
+  test("should throw an error when out of range", () => {
+    expect(() => list.insertAt(3, "c", "d", "e")).toThrow();
+    expect(() => list.insertAt(-1, "c", "d", "e")).toThrow();
+  });
+  test("should insert 3 values in the middle when the list is not empty", () => {
+    list.insertAt(1, "c", "d", "e");
+    expect(list.toString()).toBe(
+      "( a ) -> ( c ) -> ( d ) -> ( e ) -> ( b ) -> null",
+    );
+  });
+  test("should insert 3 values in the end when the list is not empty", () => {
+    list.insertAt(2, "c", "d", "e");
+    expect(list.toString()).toBe(
+      "( a ) -> ( b ) -> ( c ) -> ( d ) -> ( e ) -> null",
+    );
+  });
+  test("should insert 3 values in the beginning when the list is not empty", () => {
+    list.insertAt(0, "c", "d", "e");
+    expect(list.toString()).toBe(
+      "( c ) -> ( d ) -> ( e ) -> ( a ) -> ( b ) -> null",
+    );
+    expect(list.head()).toBe("c");
+    expect(list.tail()).toBe("b");
+  });
+  test("should insert 3 values on an empty list", () => {
+    list.reset();
+    list.insertAt(0, "c", "d", "e");
+    expect(list.toString()).toBe("( c ) -> ( d ) -> ( e ) -> null");
+
+    expect(list.head()).toBe("c");
+    expect(list.tail()).toBe("e");
   });
 });

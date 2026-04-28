@@ -33,7 +33,7 @@ export function LinkedList() {
   }
 
   function _size(currentNode) {
-    if (currentNode.nextNode === null) return 1;
+    if (currentNode === null) return 0;
 
     return 1 + _size(currentNode.nextNode);
   }
@@ -49,16 +49,16 @@ export function LinkedList() {
   }
 
   function at(index) {
-    const node = _getMatchingIndex(listHead, 0, index);
+    const node = _getNodeMatchingIndex(listHead, 0, index);
 
     return node === undefined ? node : node.value;
   }
 
-  function _getMatchingIndex(currentNode, currentIndex, targetIndex) {
+  function _getNodeMatchingIndex(currentNode, currentIndex, targetIndex) {
     if (currentIndex > targetIndex || currentNode === null) return;
     if (currentIndex === targetIndex) return currentNode;
 
-    return _getMatchingIndex(
+    return _getNodeMatchingIndex(
       currentNode.nextNode,
       currentIndex + 1,
       targetIndex,
@@ -75,14 +75,14 @@ export function LinkedList() {
   }
 
   function contains(value) {
-    return _getMatchingValue(value, listHead) === undefined ? false : true;
+    return _getNodeMatchingValue(value, listHead) === undefined ? false : true;
   }
 
-  function _getMatchingValue(value, currentNode) {
+  function _getNodeMatchingValue(value, currentNode) {
     if (currentNode.value === value) return currentNode;
     if (currentNode.nextNode === null) return;
 
-    return _getMatchingValue(value, currentNode.nextNode);
+    return _getNodeMatchingValue(value, currentNode.nextNode);
   }
 
   function findIndex(value) {
@@ -105,6 +105,31 @@ export function LinkedList() {
     return `( ${currentNode.value} ) -> ${_toString(currentNode.nextNode)}`;
   }
 
+  function insertAt(index, ...values) {
+    if (index < 0 || (index > size() && index !== 0)) throw new RangeError();
+
+    let prevNode = _getNodeMatchingIndex(listHead, 0, index - 1);
+    const nodeAfterInsert =
+      prevNode === undefined ? listHead : prevNode.nextNode;
+
+    for (let [index, value] of values.entries()) {
+      const currentNode = newNode(value);
+
+      if (prevNode === undefined) {
+        listHead = currentNode;
+        prevNode = currentNode;
+        continue;
+      }
+      if (index === values.length - 1 && nodeAfterInsert === null)
+        listTail = currentNode;
+
+      prevNode.nextNode = currentNode;
+      prevNode = currentNode;
+    }
+
+    prevNode.nextNode = nodeAfterInsert;
+  }
+
   function reset() {
     listHead = null;
     listTail = null;
@@ -121,6 +146,7 @@ export function LinkedList() {
     contains,
     findIndex,
     toString,
+    insertAt,
     reset,
   };
 }
