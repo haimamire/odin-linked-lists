@@ -23,7 +23,7 @@ describe("Linked List", () => {
     list.prepend("c");
     expect(list.size()).toBe(4);
   });
-  test("should find the value of any index", () => {
+  test("should find the value of the specified index", () => {
     expect(list.at(0)).toBe("a");
     expect(list.at(1)).toBe("b");
     expect(list.at(2)).toBe(undefined);
@@ -32,4 +32,8 @@ describe("Linked List", () => {
     list.append("c");
     expect(list.at(3)).toBe("c");
   });
+  test("should pop and return the head node", () => {
+    expect(list.pop()).toBe("a");
+    expect(list.at(0)).toBe("b");
+  })
 });

@@ -36,6 +36,16 @@ export function LinkedList() {
     return counter;
   }
 
+  function head() {
+    if (listHead === null) return;
+    return listHead.value;
+  }
+
+  function tail() {
+    if (listTail === null) return;
+    return listTail.value;
+  }
+
   function at(index) {
     const node = getNode(listHead, 0, index);
 
@@ -49,14 +59,13 @@ export function LinkedList() {
     return getNode(currentNode.nextNode, currentIndex + 1, targetIndex);
   }
 
-  function head() {
-    if (listHead === null) return;
-    return listHead.value;
-  }
+  function pop() {
+    if (listHead === null) return undefined;
 
-  function tail() {
-    if (listTail === null) return;
-    return listTail.value;
+    const currentNode = listHead;
+    listHead = currentNode.nextNode;
+
+    return currentNode.value;
   }
 
   function reset() {
@@ -71,6 +80,7 @@ export function LinkedList() {
     head,
     tail,
     at,
+    pop,
     reset,
   };
 }
