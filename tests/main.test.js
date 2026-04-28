@@ -19,6 +19,7 @@ describe("Linked List", () => {
   });
   test("should count the list", () => {
     expect(list.size()).toBe(2);
+    
     list.append("c");
     list.prepend("c");
     expect(list.size()).toBe(4);
@@ -27,13 +28,23 @@ describe("Linked List", () => {
     expect(list.at(0)).toBe("a");
     expect(list.at(1)).toBe("b");
     expect(list.at(2)).toBe(undefined);
+
     list.prepend("c");
     expect(list.at(2)).toBe("b");
+
     list.append("c");
     expect(list.at(3)).toBe("c");
   });
   test("should pop and return the head node", () => {
     expect(list.pop()).toBe("a");
     expect(list.at(0)).toBe("b");
-  })
+  });
+  test("should return true if the list contains a value, and false if not", () => {
+    expect(list.contains("a")).toBeTruthy();
+    expect(list.contains("b")).toBeTruthy();
+    expect(list.contains("c")).toBeFalsy();
+
+    list.pop();
+    expect(list.contains("a")).toBeFalsy();
+  });
 });

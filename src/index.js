@@ -68,6 +68,13 @@ export function LinkedList() {
     return currentNode.value;
   }
 
+  function contains(value, currentNode = listHead) {
+    if (currentNode.value === value) return true;
+    if (currentNode.nextNode === null) return false;
+
+    return contains(value, currentNode.nextNode);
+  }
+
   function reset() {
     listHead = null;
     listTail = null;
@@ -81,6 +88,7 @@ export function LinkedList() {
     tail,
     at,
     pop,
+    contains,
     reset,
   };
 }
