@@ -99,4 +99,33 @@ describe("Linked List", () => {
     expect(list.head()).toBe("c");
     expect(list.tail()).toBe("e");
   });
+  test("should throw an error trying to remove something out of bounds", () => {
+    expect(() => list.removeAt(-1)).toThrow();
+    expect(() => list.removeAt(2)).toThrow();
+    // expect(() => list.removeAt(0)).not.toThrow();
+  });
+  test("should remove an item in the end", () => {
+    list.append("c");
+    list.removeAt(2);
+    expect(list.toString()).toBe("( a ) -> ( b ) -> null");
+  });
+  test("should remove an item in the middle", () => {
+    list.append("c");
+    list.removeAt(1);
+    expect(list.toString()).toBe("( a ) -> ( c ) -> null");
+  });
+  test("should remove an item in the beginning", () => {
+    list.removeAt(0);
+    expect(list.toString()).toBe("( b ) -> null");
+    expect(list.head()).toBe("b");
+    expect(list.tail()).toBe("b");
+  });
+  test("should remove an item even if it's the only one", () => {
+    list.reset();
+    list.append("a");
+    list.removeAt(0);
+    expect(list.toString()).toBe(null);
+    expect(list.head()).toBeUndefined();
+    expect(list.tail()).toBeUndefined();
+  });
 });

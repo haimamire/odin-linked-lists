@@ -130,6 +130,18 @@ export function LinkedList() {
     prevNode.nextNode = nodeAfterInsert;
   }
 
+  function removeAt(index) {
+    if (index < 0 || index >= size()) throw new RangeError();
+
+    const prevNode = _getNodeMatchingIndex(listHead, 0, index - 1) ?? null;
+    const nextNode = _getNodeMatchingIndex(listHead, 0, index + 1) ?? null;
+
+    if (prevNode === null) listHead = nextNode;
+    else prevNode.nextNode = nextNode;
+
+    if (nextNode === null) listTail = prevNode;
+  }
+
   function reset() {
     listHead = null;
     listTail = null;
@@ -147,6 +159,7 @@ export function LinkedList() {
     findIndex,
     toString,
     insertAt,
+    removeAt,
     reset,
   };
 }
