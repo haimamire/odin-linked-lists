@@ -54,5 +54,14 @@ describe("Linked List", () => {
 
     list.prepend("c");
     expect(list.findIndex("a")).toBe(1);
-  })
+  });
+  test("should return a string containing the elements of the list", () => {
+    expect(list.toString()).toBe("( a ) -> ( b ) -> null");
+
+    list.prepend("c");
+    expect(list.toString()).toBe("( c ) -> ( a ) -> ( b ) -> null");
+
+    list.append("c");
+    expect(list.toString()).toBe("( c ) -> ( a ) -> ( b ) -> ( c ) -> null");
+  });
 });

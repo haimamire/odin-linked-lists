@@ -86,6 +86,11 @@ export function LinkedList() {
     return findIndex(value, currentNode.nextNode, currentIndex + 1);
   }
 
+  function toString(currentNode = listHead) {
+    if (currentNode === null) return currentNode;
+    return `( ${currentNode.value} ) -> ${toString(currentNode.nextNode)}`;
+  }
+
   function reset() {
     listHead = null;
     listTail = null;
@@ -101,6 +106,7 @@ export function LinkedList() {
     pop,
     contains,
     findIndex,
+    toString,
     reset,
   };
 }
