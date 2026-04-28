@@ -47,16 +47,20 @@ export function LinkedList() {
   }
 
   function at(index) {
-    const node = getNode(listHead, 0, index);
+    const node = getMatchingIndex(listHead, 0, index);
 
     return node === undefined ? node : node.value;
   }
 
-  function getNode(currentNode, currentIndex, targetIndex) {
+  function getMatchingIndex(currentNode, currentIndex, targetIndex) {
     if (currentIndex > targetIndex || currentNode === null) return;
     if (currentIndex === targetIndex) return currentNode;
 
-    return getNode(currentNode.nextNode, currentIndex + 1, targetIndex);
+    return getMatchingIndex(
+      currentNode.nextNode,
+      currentIndex + 1,
+      targetIndex,
+    );
   }
 
   function pop() {
@@ -75,6 +79,13 @@ export function LinkedList() {
     return contains(value, currentNode.nextNode);
   }
 
+  function findIndex(value, currentNode = listHead, currentIndex = 0) {
+    if (value === currentNode.value) return currentIndex;
+    if (currentNode.nextNode === null) return -1;
+
+    return findIndex(value, currentNode.nextNode, currentIndex + 1);
+  }
+
   function reset() {
     listHead = null;
     listTail = null;
@@ -89,6 +100,7 @@ export function LinkedList() {
     at,
     pop,
     contains,
+    findIndex,
     reset,
   };
 }

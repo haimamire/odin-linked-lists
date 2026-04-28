@@ -19,7 +19,7 @@ describe("Linked List", () => {
   });
   test("should count the list", () => {
     expect(list.size()).toBe(2);
-    
+
     list.append("c");
     list.prepend("c");
     expect(list.size()).toBe(4);
@@ -47,4 +47,12 @@ describe("Linked List", () => {
     list.pop();
     expect(list.contains("a")).toBeFalsy();
   });
+  test("should return the correct index", () => {
+    expect(list.findIndex("b")).toBe(1);
+    expect(list.findIndex("c")).toBe(-1);
+    expect(list.findIndex("a")).toBe(0);
+
+    list.prepend("c");
+    expect(list.findIndex("a")).toBe(1);
+  })
 });
