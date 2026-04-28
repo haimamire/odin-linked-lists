@@ -28,12 +28,14 @@ export function LinkedList() {
     listHead = node;
   }
 
-  function size(current = listHead) {
-    let counter = 1;
-    if (current.nextNode === null) return counter;
+  function size() {
+    return _size(listHead);
+  }
 
-    counter += size(current.nextNode);
-    return counter;
+  function _size(currentNode) {
+    if (currentNode.nextNode === null) return 1;
+
+    return 1 + _size(currentNode.nextNode);
   }
 
   function head() {
@@ -47,16 +49,16 @@ export function LinkedList() {
   }
 
   function at(index) {
-    const node = getMatchingIndex(listHead, 0, index);
+    const node = _getMatchingIndex(listHead, 0, index);
 
     return node === undefined ? node : node.value;
   }
 
-  function getMatchingIndex(currentNode, currentIndex, targetIndex) {
+  function _getMatchingIndex(currentNode, currentIndex, targetIndex) {
     if (currentIndex > targetIndex || currentNode === null) return;
     if (currentIndex === targetIndex) return currentNode;
 
-    return getMatchingIndex(
+    return _getMatchingIndex(
       currentNode.nextNode,
       currentIndex + 1,
       targetIndex,
@@ -72,23 +74,35 @@ export function LinkedList() {
     return currentNode.value;
   }
 
-  function contains(value, currentNode = listHead) {
-    if (currentNode.value === value) return true;
-    if (currentNode.nextNode === null) return false;
-
-    return contains(value, currentNode.nextNode);
+  function contains(value) {
+    return _getMatchingValue(value, listHead) === undefined ? false : true;
   }
 
-  function findIndex(value, currentNode = listHead, currentIndex = 0) {
+  function _getMatchingValue(value, currentNode) {
+    if (currentNode.value === value) return currentNode;
+    if (currentNode.nextNode === null) return;
+
+    return _getMatchingValue(value, currentNode.nextNode);
+  }
+
+  function findIndex(value) {
+    return _getIndexFromValue(value, listHead);
+  }
+
+  function _getIndexFromValue(value, currentNode, currentIndex = 0) {
     if (value === currentNode.value) return currentIndex;
     if (currentNode.nextNode === null) return -1;
 
-    return findIndex(value, currentNode.nextNode, currentIndex + 1);
+    return _getIndexFromValue(value, currentNode.nextNode, currentIndex + 1);
   }
 
-  function toString(currentNode = listHead) {
+  function toString() {
+    return _toString(listHead);
+  }
+
+  function _toString(currentNode) {
     if (currentNode === null) return currentNode;
-    return `( ${currentNode.value} ) -> ${toString(currentNode.nextNode)}`;
+    return `( ${currentNode.value} ) -> ${_toString(currentNode.nextNode)}`;
   }
 
   function reset() {
